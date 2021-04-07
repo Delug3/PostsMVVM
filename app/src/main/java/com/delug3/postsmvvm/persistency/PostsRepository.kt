@@ -1,9 +1,9 @@
-package com.delug3.healios.persistency
+package com.delug3.postsmvvm.persistency
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.delug3.healios.persistence.entity.PostsRoom
-import com.delug3.healios.persistency.dao.PostsDao
+import com.delug3.postsmvvm.persistence.entity.PostsRoom
+import com.delug3.postsmvvm.persistency.dao.PostsDao
 
 class PostsRepository(private val postsDao: PostsDao) {
 
