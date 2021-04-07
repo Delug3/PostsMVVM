@@ -1,4 +1,4 @@
-package com.delug3.healios.persistence.entity
+package com.delug3.postsmvvm.persistence.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -9,9 +9,9 @@ class PostsRoom(
 
     @PrimaryKey
     @ColumnInfo(name = "userID")
-    val userID: Long,
+    val userID: Int,
     @ColumnInfo(name = "id")
-    val id: Long,
+    val id: Int,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "body")
