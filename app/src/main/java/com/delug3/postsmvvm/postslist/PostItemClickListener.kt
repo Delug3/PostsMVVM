@@ -1,4 +1,4 @@
-package com.delug3.healios.postslist
+package com.delug3.postsmvvm.postslist
 
 interface PostItemClickListener {
     fun onPostItemClick(position: Int)
