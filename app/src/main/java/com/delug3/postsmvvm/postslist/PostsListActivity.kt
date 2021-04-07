@@ -1,4 +1,4 @@
-package com.delug3.healios.postslist
+package com.delug3.postsmvvm.postslist
 
 import android.content.Context
 import android.content.Intent
@@ -6,24 +6,26 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delug3.healios.adapter.PostsAdapter
-import com.delug3.healios.databinding.ActivityListPostsBinding
-import com.delug3.healios.model.Posts
-import com.delug3.healios.persistence.PostsRoomViewModel
-import com.delug3.healios.postlistdetails.PostActivityDetails
+import com.delug3.postsmvvm.adapter.PostsAdapter
+import com.delug3.postsmvvm.databinding.ActivityListPostsBinding
+import com.delug3.postsmvvm.model.Posts
+import com.delug3.postsmvvm.persistence.PostsRoomViewModel
+import com.delug3.postsmvvm.postslistdetails.PostsActivityDetails
 
 
 class PostsListActivity : AppCompatActivity(), PostItemClickListener {
     private val TAG = "POSTS"
 
-    private lateinit var postsListViewModel: PostsListViewModel
-    private lateinit var postsRoomViewModel: PostsRoomViewModel
-    lateinit var binding: ActivityListPostsBinding
+    //private lateinit var postsRoomViewModel: PostsRoomViewModel
+    private val postsListViewModel: PostsListViewModel by viewModels()
+    private val postsRoomViewModel: PostsRoomViewModel by viewModels()
 
+    lateinit var binding: ActivityListPostsBinding
     private var postsAdapter: PostsAdapter? = null
 
     var postsList: MutableList<Posts?> = ArrayList()
@@ -33,8 +35,6 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
         binding = ActivityListPostsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        postsListViewModel = ViewModelProvider(this).get(PostsListViewModel::class.java)
-        postsRoomViewModel = ViewModelProvider(this).get(PostsRoomViewModel::class.java)
         setUpRecyclerView()
 
         readData()
@@ -47,6 +47,14 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
         binding.recyclerViewPosts.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerViewPosts.layoutManager = layoutManager
+
+        binding.recyclerViewPosts.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerViewPosts.getContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
     }
 
     private fun readData() {
@@ -64,6 +72,8 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
         postsListViewModel.getPosts()?.observe(this, Observer { posts ->
             posts?.let { postsAdapter?.setPosts(it) }
         })
+
+        //postsListViewModel.currentPost
     }
 
     private fun sendOfflineDataToRecyclerView() {
@@ -78,21 +88,22 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
 
 
     override fun onPostItemClick(position: Int) {
-        val post = postsAdapter!!.getItemId(position)
-
+        //val post = postsAdapter!!.getItemId(position)
+        val userId: Int = postsList[position]!!.userId
+        val title: String = postsList[position]!!.title
+        val body: String = postsList[position]!!.body
+        showPostsDetails(userId, title, body)
     }
 
-    /*override fun showPoiDetails() {
-        val intent = Intent(this.PostsListActivity, PostActivityDetails::class.java)
+    fun showPostsDetails(userId: Int, title: String, body: String) {
+        val intent = Intent(this, PostsActivityDetails::class.java)
+        intent.putExtra("POST_USER_ID", userId)
         intent.putExtra("POST_TITLE", title)
         intent.putExtra("POST_BODY", body)
-
-        //send user and comments data
-
         startActivity(intent)
     }
 
-     */
+
 
     private fun isInternetAvailable(context: Context): Boolean {
         var result = false
