@@ -1,16 +1,16 @@
-package com.delug3.healios.persistence
+package com.delug3.postsmvvm.persistence
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delug3.healios.persistence.entity.PostsRoom
-import com.delug3.healios.persistency.PostsRepository
-import com.delug3.healios.persistency.PostsRoomDb
+import com.delug3.postsmvvm.persistence.entity.PostsRoom
+import com.delug3.postsmvvm.persistency.PostsRepository
+import com.delug3.postsmvvm.persistency.PostsRoomDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostsRoomViewModel(application: Application) : AndroidViewModel(application) {
+class PostsRoomViewModel(application: Application) : ViewModel() {
 
     private val repository: PostsRepository
     val allPosts: LiveData<List<PostsRoom>>
