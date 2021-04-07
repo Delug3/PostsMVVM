@@ -1,4 +1,4 @@
-package com.delug3.healios.network
+package com.delug3.postsmvvm.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
