@@ -1,4 +1,4 @@
-package com.delug3.healios
+package com.delug3.postsmvvm
 
 import org.junit.Test
 
