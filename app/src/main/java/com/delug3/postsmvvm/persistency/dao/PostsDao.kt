@@ -1,11 +1,11 @@
-package com.delug3.healios.persistency.dao
+package com.delug3.postsmvvm.persistency.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.delug3.healios.persistence.entity.PostsRoom
+import com.delug3.postsmvvm.persistence.entity.PostsRoom
 
 @Dao
 interface PostsDao {
