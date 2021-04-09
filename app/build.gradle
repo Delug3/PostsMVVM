@@ -14,7 +14,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,16 +48,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterVersion"
+    //retrofit
+    implementation "com.squareup.retrofit2:converter-moshi:$rootProject.retrofitVersion"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
 
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
+
+    //recyclerview
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+    //viewmodel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.viewModelVersion"
 
 
@@ -66,4 +69,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
 }
