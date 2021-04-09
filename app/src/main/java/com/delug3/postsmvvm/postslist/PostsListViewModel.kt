@@ -1,29 +1,48 @@
 package com.delug3.postsmvvm.postslist
 
 
-import android.util.Log
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.network.ApiClient
-import com.delug3.postsmvvm.network.ApiInterface
+import com.delug3.postsmvvm.network.PostsApi
+
+
 import com.delug3.postsmvvm.persistence.entity.PostsRoom
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 
-class PostsListViewModel: ViewModel()  {
-    private val TAG = "POSTS"
+class PostsListViewModel : ViewModel() {
     //private var postsDao: PostsDao = PostsRoomDb.getDb(this, viewModelScope).postsDao()
-
     private var postsList: MutableLiveData<List<Posts>>? = null
     private var mappedRoomList: List<PostsRoom>? = null
 
 
+    //doing network call with coroutine
+    fun getPosts(): MutableLiveData<List<Posts>>? {
+        if (postsList == null) {
+            postsList = MutableLiveData<List<Posts>>()
+            viewModelScope.launch {
+                postsList?.value = PostsApi.retrofitService.getPosts()
+            }
+        }
+        return postsList
+    }
+
+/*
+    fun getPosts(): MutableLiveData<List<Posts>>? {
+        if (postsList == null) {
+            postsList = MutableLiveData<List<Posts>>()
+            getPostsFromUrl()
+        }
+        return postsList
+    }
+
+
     private fun getPostsFromUrl() {
 
-        val service = ApiClient.client?.create(ApiInterface::class.java)
+        val service = PostsApiService.client?.create(PostsApiInterface::class.java)
         val call = service?.posts
 
         call!!.enqueue(object : Callback<List<Posts?>?> {
@@ -56,16 +75,8 @@ class PostsListViewModel: ViewModel()  {
             }
         })
     }
+    */
 
-    fun getPosts(): MutableLiveData<List<Posts>>? {
-        if (postsList == null) {
-            postsList = MutableLiveData<List<Posts>>()
-            getPostsFromUrl()
-        }
-        return postsList
-    }
 
-    private var _currentPost = "Post Test"
-    val currentPost: String
-        get() = _currentPost
+
 }
