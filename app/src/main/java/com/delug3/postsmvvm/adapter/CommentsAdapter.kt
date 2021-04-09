@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.delug3.postsmvvm.databinding.ItemsDetailsCommentsBinding
 import com.delug3.postsmvvm.model.Comments
-import com.delug3.postsmvvm.postslistdetails.PostsActivityDetails
 
-class CommentsAdapter(private val postActivityDetails: PostsActivityDetails, private val commentsList: MutableList<Comments?>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
+
+class CommentsAdapter(private val commentsList: MutableList<Comments?>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemsDetailsCommentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
