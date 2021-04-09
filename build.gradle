@@ -32,6 +32,7 @@ ext {
     testJunitVersion = '1.1.1'
     espressoVersion = '3.2.0'
     retrofitVersion = '2.9.0'
+    moshiVersion = '1.9.3'
     converterVersion = '2.9.0'
     recyclerViewVersion = '1.1.0'
     coreTestingVersion = '2.1.0'
@@ -42,4 +43,5 @@ ext {
     viewModelVersion = '2.3.1'
     fragmentVersion = '1.2.2'
     roomVersion = '2.2.6'
+    multidexVersion = '2.0.1'
 }
