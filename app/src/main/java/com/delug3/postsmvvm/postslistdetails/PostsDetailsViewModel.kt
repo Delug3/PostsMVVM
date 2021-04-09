@@ -4,25 +4,52 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.delug3.postsmvvm.model.Comments
 import com.delug3.postsmvvm.model.User
-import com.delug3.postsmvvm.network.ApiClient
-import com.delug3.postsmvvm.network.ApiInterface
+import com.delug3.postsmvvm.network.PostsApi
+import kotlinx.coroutines.launch
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class PostsDetailsViewModel(mParam: Int) : ViewModel() {
-    private val TAG = "USER"
     private var queryId: Int = mParam
-    //private lateinit var userName: String
     private var userName : MutableLiveData<String>? = null
     private var commentsList: MutableLiveData<List<Comments>>? = null
 
+
+    //doing network call with coroutine
+    fun getUserName(): MutableLiveData<String>? {
+        if (userName == null) {
+            userName = MutableLiveData<String>()
+            viewModelScope.launch {
+                val response = PostsApi.retrofitService.getUserName(queryId)
+                userName?.value = response.username
+            }
+        }
+        return userName
+    }
+
+    //doing network call with coroutine
+    fun getComments(): MutableLiveData<List<Comments>>? {
+        if (commentsList == null) {
+            commentsList = MutableLiveData<List<Comments>>()
+            viewModelScope.launch {
+                commentsList?.value = PostsApi.retrofitService.getComments(queryId)
+            }
+        }
+        return commentsList
+    }
+
+}
+
+    /*
     private fun getUserFromEndpoint() {
 
-        val service = ApiClient.client?.create(ApiInterface::class.java)
+        val service = PostsApiService.client?.create(PostsApiInterface::class.java)
         val call = service?.getUserName(queryId)
 
         call!!.enqueue(object : Callback<User?> {
@@ -42,9 +69,11 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
         })
     }
 
+
+
     private fun getCommentsFromEndpoint() {
 
-        val service = ApiClient.client?.create(ApiInterface::class.java)
+        val service = PostsApiService.client?.create(PostsApiInterface::class.java)
         val call = service?.getComments(queryId)
 
         call!!.enqueue(object : Callback<List<Comments?>?> {
@@ -65,7 +94,6 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
     }
 
 
-
    fun getUserName(): LiveData<String>? {
        if (userName == null) {
            userName = MutableLiveData<String>()
@@ -83,5 +111,5 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
         return commentsList
     }
 
+    */
 
-}
