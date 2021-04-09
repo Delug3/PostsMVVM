@@ -52,7 +52,7 @@ class PostsActivityDetails : AppCompatActivity() {
 
 
     private fun setUpRecyclerView() {
-        commentsAdapter = CommentsAdapter(this, commentsList)
+        commentsAdapter = CommentsAdapter(commentsList)
         binding.recyclerViewDetailsComments.adapter = commentsAdapter
         binding.recyclerViewDetailsComments.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
@@ -81,5 +81,7 @@ class PostsActivityDetails : AppCompatActivity() {
         })
 
     }
+
+
 
 }
