@@ -2,21 +2,19 @@ package com.delug3.postsmvvm.postslist
 
 
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.delug3.postsmvvm.database.PostsRepository
 import com.delug3.postsmvvm.model.Posts
 import com.delug3.postsmvvm.network.PostsApi
-
-
-import com.delug3.postsmvvm.persistence.entity.PostsRoom
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class PostsListViewModel : ViewModel() {
+class PostsListViewModel(private val repository: PostsRepository) : ViewModel() {
+
+
     //private var postsDao: PostsDao = PostsRoomDb.getDb(this, viewModelScope).postsDao()
     private var postsList: MutableLiveData<List<Posts>>? = null
-    private var mappedRoomList: List<PostsRoom>? = null
 
 
     //doing network call with coroutine
@@ -30,7 +28,35 @@ class PostsListViewModel : ViewModel() {
         return postsList
     }
 
+
+    //get data from postList instead of doing second call
+    fun insertAllPosts() = viewModelScope.launch(Dispatchers.IO) {
+        val test = PostsApi.retrofitService.getPosts()
+        repository.insertAllPosts(test)
+    }
+
+
+    class PostsViewModelFactory(private val repository: PostsRepository) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(PostsListViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return PostsListViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
+
+
+
+
+
 /*
+
+    init {
+        val postsDao = PostsRoomDatabase.getDatabase(context, viewModelScope).postsDao()
+        repository = PostsRepository(postsDao)
+    }
+
     fun getPosts(): MutableLiveData<List<Posts>>? {
         if (postsList == null) {
             postsList = MutableLiveData<List<Posts>>()
