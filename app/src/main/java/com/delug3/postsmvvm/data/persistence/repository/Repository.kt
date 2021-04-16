@@ -1,12 +1,11 @@
-package com.delug3.postsmvvm.database
+package com.delug3.postsmvvm.data.persistence.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.delug3.postsmvvm.database.dao.PostsDao
-import com.delug3.postsmvvm.model.Posts
+import com.delug3.postsmvvm.data.persistence.dao.PostsDao
+import com.delug3.postsmvvm.data.model.Posts
 
-class PostsRepository(private val postsDao: PostsDao) {
+class Repository(private val postsDao: PostsDao) {
 
     val allPosts: LiveData<List<Posts>> = postsDao.readAllPosts()
 

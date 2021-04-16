@@ -1,4 +1,4 @@
-package com.delug3.postsmvvm.network
+package com.delug3.postsmvvm.data.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -24,7 +24,7 @@ private val retrofit = Retrofit.Builder()
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object PostsApi {
-    val retrofitService: PostApiInterface by lazy { retrofit.create(PostApiInterface::class.java) }
+    val RETROFIT_SERVICE: PostsService by lazy { retrofit.create(PostsService::class.java) }
 }
 
 

@@ -1,4 +1,4 @@
-package com.delug3.postsmvvm.model
+package com.delug3.postsmvvm.data.model
 
 data class Comments(
 

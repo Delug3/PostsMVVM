@@ -1,10 +1,10 @@
-package com.delug3.postsmvvm.adapter
+package com.delug3.postsmvvm.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.delug3.postsmvvm.databinding.ItemsDetailsCommentsBinding
-import com.delug3.postsmvvm.model.Comments
+import com.delug3.postsmvvm.data.model.Comments
 
 
 class CommentsAdapter(private val commentsList: MutableList<Comments?>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {

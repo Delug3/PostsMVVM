@@ -1,11 +1,11 @@
-package com.delug3.postsmvvm.adapter
+package com.delug3.postsmvvm.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.delug3.postsmvvm.databinding.ItemsPostsBinding
-import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.postslist.PostsListActivity
+import com.delug3.postsmvvm.data.model.Posts
+import com.delug3.postsmvvm.ui.main.views.PostsListActivity
 
 
 

@@ -1,16 +1,16 @@
-package com.delug3.postsmvvm.postslist
+package com.delug3.postsmvvm.ui.main.viewmodels
 
 
 
 import androidx.lifecycle.*
-import com.delug3.postsmvvm.database.PostsRepository
-import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.network.PostsApi
+import com.delug3.postsmvvm.data.persistence.repository.Repository
+import com.delug3.postsmvvm.data.model.Posts
+import com.delug3.postsmvvm.data.api.PostsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class PostsListViewModel(private val repository: PostsRepository) : ViewModel() {
+class PostsListViewModel(private val repository: Repository) : ViewModel() {
 
 
     //private var postsDao: PostsDao = PostsRoomDb.getDb(this, viewModelScope).postsDao()
@@ -22,7 +22,7 @@ class PostsListViewModel(private val repository: PostsRepository) : ViewModel() 
         if (postsList == null) {
             postsList = MutableLiveData<List<Posts>>()
             viewModelScope.launch {
-                postsList?.value = PostsApi.retrofitService.getPosts()
+                postsList?.value = PostsApi.RETROFIT_SERVICE.getPosts()
             }
         }
         return postsList
@@ -31,12 +31,12 @@ class PostsListViewModel(private val repository: PostsRepository) : ViewModel() 
 
     //get data from postList instead of doing second call
     fun insertAllPosts() = viewModelScope.launch(Dispatchers.IO) {
-        val test = PostsApi.retrofitService.getPosts()
+        val test = PostsApi.RETROFIT_SERVICE.getPosts()
         repository.insertAllPosts(test)
     }
 
 
-    class PostsViewModelFactory(private val repository: PostsRepository) : ViewModelProvider.Factory {
+    class PostsViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(PostsListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

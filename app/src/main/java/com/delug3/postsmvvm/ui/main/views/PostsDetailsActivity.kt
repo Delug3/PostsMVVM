@@ -1,4 +1,4 @@
-package com.delug3.postsmvvm.postslistdetails
+package com.delug3.postsmvvm.ui.main.views
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delug3.postsmvvm.adapter.CommentsAdapter
+import com.delug3.postsmvvm.ui.main.adapter.CommentsAdapter
 import com.delug3.postsmvvm.databinding.ActivityDetailsPostsBinding
-import com.delug3.postsmvvm.factory.PostsViewModelFactory
-import com.delug3.postsmvvm.model.Comments
+import com.delug3.postsmvvm.ui.base.PostsViewModelFactory
+import com.delug3.postsmvvm.data.model.Comments
+import com.delug3.postsmvvm.ui.main.viewmodels.PostsDetailsViewModel
 
 
-class PostsActivityDetails : AppCompatActivity() {
+class PostsDetailsActivity : AppCompatActivity() {
     var userId: Int = 0
     lateinit var binding: ActivityDetailsPostsBinding
     private var commentsAdapter: CommentsAdapter? = null

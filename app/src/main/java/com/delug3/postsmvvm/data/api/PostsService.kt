@@ -1,15 +1,13 @@
-package com.delug3.postsmvvm.network
+package com.delug3.postsmvvm.data.api
 
-import com.delug3.postsmvvm.model.Comments
-import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.model.User
-import retrofit2.Call
-import retrofit2.Response
+import com.delug3.postsmvvm.data.model.Comments
+import com.delug3.postsmvvm.data.model.Posts
+import com.delug3.postsmvvm.data.model.User
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface PostApiInterface {
+interface PostsService {
     // @get:GET("posts")
     // val getPosts: Call<List<Posts?>?>?
 

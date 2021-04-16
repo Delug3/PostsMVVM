@@ -1,18 +1,11 @@
-package com.delug3.postsmvvm.postslistdetails
+package com.delug3.postsmvvm.ui.main.viewmodels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delug3.postsmvvm.model.Comments
-import com.delug3.postsmvvm.model.User
-import com.delug3.postsmvvm.network.PostsApi
+import com.delug3.postsmvvm.data.model.Comments
+import com.delug3.postsmvvm.data.api.PostsApi
 import kotlinx.coroutines.launch
-
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class PostsDetailsViewModel(mParam: Int) : ViewModel() {
@@ -26,7 +19,7 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
         if (userName == null) {
             userName = MutableLiveData<String>()
             viewModelScope.launch {
-                val response = PostsApi.retrofitService.getUserName(queryId)
+                val response = PostsApi.RETROFIT_SERVICE.getUserName(queryId)
                 userName?.value = response.username
             }
         }
@@ -38,7 +31,7 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
         if (commentsList == null) {
             commentsList = MutableLiveData<List<Comments>>()
             viewModelScope.launch {
-                commentsList?.value = PostsApi.retrofitService.getComments(queryId)
+                commentsList?.value = PostsApi.RETROFIT_SERVICE.getComments(queryId)
             }
         }
         return commentsList

@@ -1,4 +1,4 @@
-package com.delug3.postsmvvm.postslist
+package com.delug3.postsmvvm.ui.main.views
 
 import android.content.Context
 import android.content.Intent
@@ -11,11 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delug3.postsmvvm.adapter.PostsAdapter
-import com.delug3.postsmvvm.database.PostsApplication
+import com.delug3.postsmvvm.ui.main.adapter.PostsAdapter
+import com.delug3.postsmvvm.workers.PostsApplication
 import com.delug3.postsmvvm.databinding.ActivityListPostsBinding
-import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.postslistdetails.PostsActivityDetails
+import com.delug3.postsmvvm.data.model.Posts
+import com.delug3.postsmvvm.listeners.PostItemClickListener
+import com.delug3.postsmvvm.ui.main.viewmodels.PostsListViewModel
 
 
 class PostsListActivity : AppCompatActivity(), PostItemClickListener {
@@ -100,7 +101,7 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
     }
 
     fun showPostsDetails(userId: Int, title: String, body: String) {
-        val intent = Intent(this, PostsActivityDetails::class.java)
+        val intent = Intent(this, PostsDetailsActivity::class.java)
         intent.putExtra("POST_USER_ID", userId)
         intent.putExtra("POST_TITLE", title)
         intent.putExtra("POST_BODY", body)
