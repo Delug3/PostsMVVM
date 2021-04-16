@@ -12,9 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delug3.postsmvvm.adapter.PostsAdapter
+import com.delug3.postsmvvm.database.PostsApplication
 import com.delug3.postsmvvm.databinding.ActivityListPostsBinding
 import com.delug3.postsmvvm.model.Posts
-import com.delug3.postsmvvm.persistence.PostsRoomViewModel
 import com.delug3.postsmvvm.postslistdetails.PostsActivityDetails
 
 
@@ -22,8 +22,11 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
     private val TAG = "POSTS"
 
     //private lateinit var postsRoomViewModel: PostsRoomViewModel
-    private val postsListViewModel: PostsListViewModel by viewModels()
-    private val postsRoomViewModel: PostsRoomViewModel by viewModels()
+    private val postsListViewModel: PostsListViewModel by viewModels{
+        PostsListViewModel.PostsViewModelFactory(
+            (application as PostsApplication).repository
+        )
+    }
 
     lateinit var binding: ActivityListPostsBinding
     private var postsAdapter: PostsAdapter? = null
@@ -73,7 +76,11 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
             posts?.let { postsAdapter?.setPosts(it) }
         })
 
-        //postsListViewModel.currentPost
+    }
+
+    private fun sendDataToDb() {
+        postsListViewModel.insertAllPosts()
+
     }
 
     private fun sendOfflineDataToRecyclerView() {
@@ -81,10 +88,7 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
 
     }
 
-    private fun sendDataToDb() {
-        // postsRoomViewModel.insertAllPosts()
 
-    }
 
 
     override fun onPostItemClick(position: Int) {
