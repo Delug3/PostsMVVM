@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import com.delug3.postsmvvm.data.persistence.dao.PostsDao
 import com.delug3.postsmvvm.data.model.Posts
 
-class Repository(private val postsDao: PostsDao) {
+class PostsRepository(private val postsDao: PostsDao) {
 
-    val allPosts: LiveData<List<Posts>> = postsDao.readAllPosts()
+    val allPosts: LiveData<List<Posts>> = postsDao.getPosts()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertPosts(postsRoom: Posts) {
-        postsDao.insertPosts(postsRoom)
+        postsDao.insertPost(postsRoom)
     }
 
     @Suppress("RedundantSuspendModifier")

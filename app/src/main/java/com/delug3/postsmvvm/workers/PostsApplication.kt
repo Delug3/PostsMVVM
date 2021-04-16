@@ -1,7 +1,7 @@
 package com.delug3.postsmvvm.workers
 
 import android.app.Application
-import com.delug3.postsmvvm.data.persistence.repository.Repository
+import com.delug3.postsmvvm.data.persistence.repository.PostsRepository
 import com.delug3.postsmvvm.data.persistence.AppDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -13,5 +13,5 @@ class PostsApplication : Application() {
     // Using by lazy so the database and the repository are only created when they're needed
     // rather than when the application starts
     val database by lazy { AppDatabase.getDatabase(this, applicationScope) }
-    val repository by lazy { Repository(database.postsDao()) }
+    val repository by lazy { PostsRepository(database.postsDao()) }
 }

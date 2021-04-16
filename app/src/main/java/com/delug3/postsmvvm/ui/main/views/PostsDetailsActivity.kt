@@ -70,14 +70,14 @@ class PostsDetailsActivity : AppCompatActivity() {
 
     private fun setUserName() {
         //do something with the value which is 'it'
-        postsDetailsViewModel.getUserName()?.observe(this, Observer {
+        postsDetailsViewModel.fetchUserName()?.observe(this, Observer {
             binding.textViewDetailsUserName.text = it
         })
 
     }
 
     private fun sendDataToRecyclerView() {
-        postsDetailsViewModel.getComments()?.observe(this, Observer { comments ->
+        postsDetailsViewModel.fetchComments()?.observe(this, Observer { comments ->
             comments?.let { commentsAdapter?.setComments(it) }
         })
 

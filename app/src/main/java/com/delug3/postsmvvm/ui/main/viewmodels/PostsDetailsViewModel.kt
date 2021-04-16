@@ -15,7 +15,7 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
 
 
     //doing network call with coroutine
-    fun getUserName(): MutableLiveData<String>? {
+    fun fetchUserName(): MutableLiveData<String>? {
         if (userName == null) {
             userName = MutableLiveData<String>()
             viewModelScope.launch {
@@ -27,7 +27,7 @@ class PostsDetailsViewModel(mParam: Int) : ViewModel() {
     }
 
     //doing network call with coroutine
-    fun getComments(): MutableLiveData<List<Comments>>? {
+    fun fetchComments(): MutableLiveData<List<Comments>>? {
         if (commentsList == null) {
             commentsList = MutableLiveData<List<Comments>>()
             viewModelScope.launch {

@@ -3,14 +3,14 @@ package com.delug3.postsmvvm.ui.main.viewmodels
 
 
 import androidx.lifecycle.*
-import com.delug3.postsmvvm.data.persistence.repository.Repository
+import com.delug3.postsmvvm.data.persistence.repository.PostsRepository
 import com.delug3.postsmvvm.data.model.Posts
 import com.delug3.postsmvvm.data.api.PostsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class PostsListViewModel(private val repository: Repository) : ViewModel() {
+class PostsListViewModel(private val postsRepository: PostsRepository) : ViewModel() {
 
 
     //private var postsDao: PostsDao = PostsRoomDb.getDb(this, viewModelScope).postsDao()
@@ -18,7 +18,7 @@ class PostsListViewModel(private val repository: Repository) : ViewModel() {
 
 
     //doing network call with coroutine
-    fun getPosts(): MutableLiveData<List<Posts>>? {
+    fun fetchPosts(): MutableLiveData<List<Posts>>? {
         if (postsList == null) {
             postsList = MutableLiveData<List<Posts>>()
             viewModelScope.launch {
@@ -30,17 +30,17 @@ class PostsListViewModel(private val repository: Repository) : ViewModel() {
 
 
     //get data from postList instead of doing second call
-    fun insertAllPosts() = viewModelScope.launch(Dispatchers.IO) {
+    fun insertPosts() = viewModelScope.launch(Dispatchers.IO) {
         val test = PostsApi.RETROFIT_SERVICE.getPosts()
-        repository.insertAllPosts(test)
+        postsRepository.insertAllPosts(test)
     }
 
 
-    class PostsViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
+    class PostsViewModelFactory(private val postsRepository: PostsRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(PostsListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return PostsListViewModel(repository) as T
+                return PostsListViewModel(postsRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

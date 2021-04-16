@@ -65,7 +65,7 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
         val connection = isInternetAvailable(this)
         if (connection) {
             sendOnlineDataToRecyclerView()
-            sendDataToDb()
+            sendDataToDatabase()
         } else {
             sendOfflineDataToRecyclerView()
         }
@@ -73,14 +73,14 @@ class PostsListActivity : AppCompatActivity(), PostItemClickListener {
     }
 
     private fun sendOnlineDataToRecyclerView() {
-        postsListViewModel.getPosts()?.observe(this, Observer { posts ->
+        postsListViewModel.fetchPosts()?.observe(this, Observer { posts ->
             posts?.let { postsAdapter?.setPosts(it) }
         })
 
     }
 
-    private fun sendDataToDb() {
-        postsListViewModel.insertAllPosts()
+    private fun sendDataToDatabase() {
+        postsListViewModel.insertPosts()
 
     }
 
